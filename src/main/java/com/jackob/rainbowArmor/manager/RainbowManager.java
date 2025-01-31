@@ -1,14 +1,19 @@
 package com.jackob.rainbowArmor.manager;
 
+import com.jackob.rainbowArmor.RainbowArmor;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Random;
 
 public class RainbowManager {
+
+    private RainbowArmor plugin;
+
+    public RainbowManager(RainbowArmor plugin) {
+        this.plugin = plugin;
+    }
 
     private final String messageIndicator = "[Rainbow Armor] ";
 
@@ -49,12 +54,6 @@ public class RainbowManager {
         armor[3] = new ItemStack(Material.LEATHER_HELMET);
 
         return armor;
-    }
-
-    private Color randomColor() {
-        Random random = new Random();
-
-        return Color.fromRGB(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
 
 }
