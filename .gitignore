@@ -1,0 +1,17 @@
+# Ignore IntelliJ IDEA files
+.idea/
+*.iml
+
+# Ignore Maven build directory
+target/
+
+# Ignore local configuration files
+*.properties
+*.log
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore other IDE-specific files
+{}.predefinedExternalAnnotations.json

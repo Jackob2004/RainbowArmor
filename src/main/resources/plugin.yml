@@ -1,0 +1,9 @@
+name: RainbowArmor
+version: '1.0-SNAPSHOT'
+main: com.jackob.rainbowArmor.RainbowArmor
+api-version: '1.21'
+description: case opening plugin
+commands:
+  rainbow:
+    description: rainbow armor command
+    usage: /<command>
