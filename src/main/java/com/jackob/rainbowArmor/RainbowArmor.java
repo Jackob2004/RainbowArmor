@@ -1,13 +1,15 @@
 package com.jackob.rainbowArmor;
 
 import com.jackob.rainbowArmor.command.ActivateCommand;
+import com.jackob.rainbowArmor.manager.RainbowManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class RainbowArmor extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getCommand("rainbow").setExecutor(new ActivateCommand());
+        RainbowManager manager = new RainbowManager(this);
+        getCommand("rainbow").setExecutor(new ActivateCommand(manager));
 
     }
 

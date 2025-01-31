@@ -10,8 +10,8 @@ public class ActivateCommand implements CommandExecutor {
 
     private RainbowManager manager;
 
-    public ActivateCommand() {
-        this.manager = new RainbowManager();
+    public ActivateCommand(RainbowManager manager) {
+        this.manager = manager;
     }
 
     @Override
