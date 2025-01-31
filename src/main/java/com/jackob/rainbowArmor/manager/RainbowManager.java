@@ -51,10 +51,4 @@ public class RainbowManager {
         return armor;
     }
 
-    private Color randomColor() {
-        Random random = new Random();
-
-        return Color.fromRGB(random.nextInt(256), random.nextInt(256), random.nextInt(256));
-    }
-
 }
