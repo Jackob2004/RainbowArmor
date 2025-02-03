@@ -1,11 +1,12 @@
 package com.jackob.rainbowArmor.manager;
 
 import com.jackob.rainbowArmor.RainbowArmor;
+import com.jackob.rainbowArmor.task.AnimationTask;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
+import org.bukkit.scheduler.BukkitTask;
 
 public class RainbowManager {
 
@@ -18,16 +19,19 @@ public class RainbowManager {
     private final String messageIndicator = "[Rainbow Armor] ";
 
     public void activateRainbow(Player player) {
-        equipLeatherArmor(player);
+        ItemStack[] armor = equipLeatherArmor(player);
+
+        if (armor != null) {
+          //  BukkitTask animationTask = new AnimationTask().runTaskTimer(plugin, 1, 3);
+        }
+
     }
 
     private ItemStack[] equipLeatherArmor(Player player) {
-        ItemStack[] leatherArmor = createLeatherArmor();
-        
         if (hasNoArmor(player)) {
-            player.getInventory().setArmorContents(leatherArmor);
+            player.getInventory().setArmorContents(createLeatherArmor());
             
-            return leatherArmor;
+            return player.getInventory().getArmorContents();
         } else {
             player.sendMessage(messageIndicator + ChatColor.GRAY + "You need to remove your current armor");
         }

@@ -21,7 +21,7 @@ public final class RainbowArmor extends JavaPlugin {
     /*
         TODO:
             - /rainbow: (toggle)
-                - equip leather armor if player has no armor
+                - add smooth animation transition (default animation, edge case with creative mode)
                 - start animation task
                 - stop animation on toggle remove leather armor
                 - prevent player from changing/drooping armor when animation is activated
