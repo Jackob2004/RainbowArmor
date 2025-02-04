@@ -1,8 +1,10 @@
 package com.jackob.rainbowArmor.animation;
 
+import org.bukkit.Color;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
-public class Animation implements AnimationBehavior {
+public abstract class Animation implements AnimationBehavior {
 
     private ItemStack[] armorPieces;
 
@@ -18,19 +20,19 @@ public class Animation implements AnimationBehavior {
         this.armorPieces = armorPieces;
     }
 
+    protected void changeArmorColor(Color color) {
+        for (ItemStack item : armorPieces) {
+            LeatherArmorMeta armorMeta = (LeatherArmorMeta) item.getItemMeta();
+
+            armorMeta.setColor(color);
+            item.setItemMeta(armorMeta);
+        }
+    }
+
     @Override
     public void animate() {
 
     }
-
-    //    private void changeArmorColor(Color color) {
-//        for (ItemStack item : armorPieces) {
-//            LeatherArmorMeta armorMeta = (LeatherArmorMeta) item.getItemMeta();
-//
-//            armorMeta.setColor(color);
-//            item.setItemMeta(armorMeta);
-//        }
-//    }
 //
 //    private Color getCustomColor(int blue) {
 //        return Color.fromRGB(0,0, blue);

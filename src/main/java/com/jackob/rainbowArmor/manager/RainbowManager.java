@@ -1,6 +1,7 @@
 package com.jackob.rainbowArmor.manager;
 
 import com.jackob.rainbowArmor.RainbowArmor;
+import com.jackob.rainbowArmor.animation.SmoothAnimation;
 import com.jackob.rainbowArmor.task.AnimationTask;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -22,7 +23,7 @@ public class RainbowManager {
         ItemStack[] armor = equipLeatherArmor(player);
 
         if (armor != null) {
-          //  BukkitTask animationTask = new AnimationTask().runTaskTimer(plugin, 1, 3);
+            BukkitTask animationTask = new AnimationTask(new SmoothAnimation(armor)).runTaskTimer(plugin, 1, 1);
         }
 
     }
