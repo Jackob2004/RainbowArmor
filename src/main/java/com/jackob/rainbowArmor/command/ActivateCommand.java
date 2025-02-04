@@ -20,7 +20,7 @@ public class ActivateCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
-            manager.activateRainbow(player);
+            manager.animation(player);
 
             return true;
         }

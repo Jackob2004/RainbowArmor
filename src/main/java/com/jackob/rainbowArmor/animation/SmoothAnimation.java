@@ -1,7 +1,10 @@
 package com.jackob.rainbowArmor.animation;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.logging.Level;
 
 public class SmoothAnimation extends Animation {
 
@@ -52,6 +55,7 @@ public class SmoothAnimation extends Animation {
     public void animate() {
         transferColor();
         changeArmorColor(getColor());
+        Bukkit.getLogger().log(Level.INFO, "test");
     }
 
 

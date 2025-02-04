@@ -9,23 +9,57 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class RainbowManager {
 
     private RainbowArmor plugin;
 
-    public RainbowManager(RainbowArmor plugin) {
-        this.plugin = plugin;
-    }
+    private Map<UUID, BukkitTask> taskMap;
 
     private final String messageIndicator = "[Rainbow Armor] ";
 
-    public void activateRainbow(Player player) {
+    public RainbowManager(RainbowArmor plugin) {
+        this.plugin = plugin;
+        this.taskMap = new HashMap<>();
+    }
+
+    public void animation(Player player) {
+
+        if (taskMap.containsKey(player.getUniqueId())) {
+            deactivateRainbow(player);
+        } else {
+            activateRainbow(player);
+        }
+
+    }
+
+    public void onQuit(Player player) {
+        if (taskMap.containsKey(player.getUniqueId())) {
+            deactivateRainbow(player);
+        }
+    }
+
+    private void activateRainbow(Player player) {
         ItemStack[] armor = equipLeatherArmor(player);
 
         if (armor != null) {
             BukkitTask animationTask = new AnimationTask(new SmoothAnimation(armor)).runTaskTimer(plugin, 1, 1);
+            taskMap.put(player.getUniqueId(), animationTask);
+            player.sendMessage(messageIndicator + ChatColor.GREEN + "rainbow has been activated");
         }
+    }
 
+    private void deactivateRainbow(Player player) {
+        UUID uuid = player.getUniqueId();
+
+        taskMap.get(uuid).cancel();
+        taskMap.remove(uuid);
+
+        player.getInventory().setArmorContents(new ItemStack[]{});
+        player.sendMessage(messageIndicator + ChatColor.RED + "rainbow has been deactivated");
     }
 
     private ItemStack[] equipLeatherArmor(Player player) {
