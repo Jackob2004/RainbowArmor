@@ -15,6 +15,6 @@ public class PlayerQuitListener implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        manager.onQuit(event.getPlayer());
+        manager.stopAnimation(event.getPlayer());
     }
 }

@@ -1,6 +1,9 @@
 package com.jackob.rainbowArmor.animation;
 
 import org.bukkit.Color;
+import org.bukkit.GameMode;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
@@ -8,8 +11,11 @@ public abstract class Animation implements AnimationBehavior {
 
     private ItemStack[] armorPieces;
 
-    public Animation(ItemStack[] armorPieces) {
+    private Player player;
+
+    public Animation(ItemStack[] armorPieces, Player player) {
         this.armorPieces = armorPieces;
+        this.player = player;
     }
 
     public ItemStack[] getArmorPieces() {
@@ -31,7 +37,9 @@ public abstract class Animation implements AnimationBehavior {
 
     @Override
     public void animate() {
-
+        if (player.getGameMode() == GameMode.CREATIVE && player.getOpenInventory().getTopInventory().getType() == InventoryType.CRAFTING) {
+            armorPieces = player.getInventory().getArmorContents();
+        }
     }
 //
 //    private Color getCustomColor(int blue) {

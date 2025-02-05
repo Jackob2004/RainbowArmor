@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class RainbowManager {
 
     public void animation(Player player) {
 
-        if (taskMap.containsKey(player.getUniqueId())) {
+        if (rainbowActivated(player)) {
             deactivateRainbow(player);
         } else {
             activateRainbow(player);
@@ -36,30 +37,41 @@ public class RainbowManager {
 
     }
 
-    public void onQuit(Player player) {
-        if (taskMap.containsKey(player.getUniqueId())) {
-            deactivateRainbow(player);
+    public ItemStack[] stopAnimation(Player player) {
+        if (rainbowActivated(player)) {
+            return deactivateRainbow(player);
         }
+
+        return null;
+    }
+
+    public boolean rainbowActivated(Player player) {
+        return taskMap.containsKey(player.getUniqueId());
     }
 
     private void activateRainbow(Player player) {
         ItemStack[] armor = equipLeatherArmor(player);
 
         if (armor != null) {
-            BukkitTask animationTask = new AnimationTask(new SmoothAnimation(armor)).runTaskTimer(plugin, 1, 1);
+            BukkitTask animationTask = new AnimationTask(new SmoothAnimation(armor, player)).runTaskTimer(plugin, 1, 1);
             taskMap.put(player.getUniqueId(), animationTask);
+
             player.sendMessage(messageIndicator + ChatColor.GREEN + "rainbow has been activated");
         }
     }
 
-    private void deactivateRainbow(Player player) {
+    private ItemStack[] deactivateRainbow(Player player) {
         UUID uuid = player.getUniqueId();
 
         taskMap.get(uuid).cancel();
         taskMap.remove(uuid);
 
+        ItemStack[] armor = player.getInventory().getArmorContents();
+
         player.getInventory().setArmorContents(new ItemStack[]{});
         player.sendMessage(messageIndicator + ChatColor.RED + "rainbow has been deactivated");
+
+        return armor;
     }
 
     private ItemStack[] equipLeatherArmor(Player player) {
@@ -91,8 +103,17 @@ public class RainbowManager {
         armor[1] = new ItemStack(Material.LEATHER_LEGGINGS);
         armor[2] = new ItemStack(Material.LEATHER_CHESTPLATE);
         armor[3] = new ItemStack(Material.LEATHER_HELMET);
+        setUnbreakable(armor);
 
         return armor;
+    }
+
+    private void setUnbreakable(ItemStack[] armor) {
+        for (ItemStack item : armor) {
+            ItemMeta itemMeta = item.getItemMeta();
+            itemMeta.setUnbreakable(true);
+            item.setItemMeta(itemMeta);
+        }
     }
 
 }

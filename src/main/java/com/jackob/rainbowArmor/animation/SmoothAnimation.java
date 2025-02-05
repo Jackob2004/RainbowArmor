@@ -1,10 +1,9 @@
 package com.jackob.rainbowArmor.animation;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.logging.Level;
 
 public class SmoothAnimation extends Animation {
 
@@ -12,8 +11,8 @@ public class SmoothAnimation extends Animation {
 
     private int colorPointer;
 
-    public SmoothAnimation(ItemStack[] armorPieces) {
-        super(armorPieces);
+    public SmoothAnimation(ItemStack[] armorPieces, Player player) {
+        super(armorPieces, player);
 
         this.colorProcessors = new ColorProcessor[]{new ColorProcessor(5), new ColorProcessor(5), new ColorProcessor(5)};
         this.colorPointer = 0;
@@ -53,9 +52,10 @@ public class SmoothAnimation extends Animation {
 
     @Override
     public void animate() {
+        super.animate();
+
         transferColor();
         changeArmorColor(getColor());
-        Bukkit.getLogger().log(Level.INFO, "test");
     }
 
 
