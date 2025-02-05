@@ -28,8 +28,8 @@ public final class RainbowArmor extends JavaPlugin {
 
     /*
         TODO:
-            - /rainbow: (toggle)
                 - more animations types
+
                 - animation speed
                 - commands for choosing desired animation and speed
                 - command tab complete

@@ -28,11 +28,15 @@ public abstract class Animation implements AnimationBehavior {
 
     protected void changeArmorColor(Color color) {
         for (ItemStack item : armorPieces) {
-            LeatherArmorMeta armorMeta = (LeatherArmorMeta) item.getItemMeta();
-
-            armorMeta.setColor(color);
-            item.setItemMeta(armorMeta);
+            setArmorPieceColor(color, item);
         }
+    }
+
+    protected void setArmorPieceColor(Color color, ItemStack item) {
+        LeatherArmorMeta armorMeta = (LeatherArmorMeta) item.getItemMeta();
+
+        armorMeta.setColor(color);
+        item.setItemMeta(armorMeta);
     }
 
     @Override
@@ -41,14 +45,5 @@ public abstract class Animation implements AnimationBehavior {
             armorPieces = player.getInventory().getArmorContents();
         }
     }
-//
-//    private Color getCustomColor(int blue) {
-//        return Color.fromRGB(0,0, blue);
-//    }
 
-//    private Color randomColor() {
-//        Random random = new Random();
-//
-//        return Color.fromRGB(random.nextInt(256), random.nextInt(256), random.nextInt(256));
-//    }
 }

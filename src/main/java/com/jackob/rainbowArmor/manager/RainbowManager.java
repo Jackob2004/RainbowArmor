@@ -1,7 +1,10 @@
 package com.jackob.rainbowArmor.manager;
 
 import com.jackob.rainbowArmor.RainbowArmor;
+import com.jackob.rainbowArmor.animation.ChaoticAnimation;
+import com.jackob.rainbowArmor.animation.ClassicAnimation;
 import com.jackob.rainbowArmor.animation.SmoothAnimation;
+import com.jackob.rainbowArmor.animation.TopBottomAnimation;
 import com.jackob.rainbowArmor.task.AnimationTask;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -53,7 +56,7 @@ public class RainbowManager {
         ItemStack[] armor = equipLeatherArmor(player);
 
         if (armor != null) {
-            BukkitTask animationTask = new AnimationTask(new SmoothAnimation(armor, player)).runTaskTimer(plugin, 1, 1);
+            BukkitTask animationTask = new AnimationTask(new TopBottomAnimation(armor, player, TopBottomAnimation.TopBottomType.FromBottom)).runTaskTimer(plugin, 1, 2);
             taskMap.put(player.getUniqueId(), animationTask);
 
             player.sendMessage(messageIndicator + ChatColor.GREEN + "rainbow has been activated");
