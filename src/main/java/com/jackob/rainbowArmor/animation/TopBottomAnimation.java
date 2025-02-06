@@ -42,9 +42,9 @@ public class TopBottomAnimation extends Animation{
         setArmorPieceColor(color, armorPiece);
 
         switch (type) {
-            case Default -> moveArmorPart();
-            case FromTop -> moveArmorPart(integer -> (integer < 0) ? 3 : integer,-1);
-            case FromBottom -> moveArmorPart(integer -> (integer > 3) ? 0 : integer,1);
+            case TOPBOTTOM -> moveArmorPart();
+            case FROMTOP -> moveArmorPart(integer -> (integer < 0) ? 3 : integer,-1);
+            case FROMBOTTOM -> moveArmorPart(integer -> (integer > 3) ? 0 : integer,1);
         }
     }
 
@@ -56,9 +56,9 @@ public class TopBottomAnimation extends Animation{
     }
 
     public enum TopBottomType {
-        Default,
-        FromTop,
-        FromBottom;
+        TOPBOTTOM,
+        FROMTOP,
+        FROMBOTTOM;
 
     }
 

@@ -37,6 +37,38 @@ public class RainbowManager {
 
     }
 
+    public void chosenAnimation(Player player, String animationName) {
+        chosenAnimation(player, animationName, 2);
+    }
+
+    public void chosenAnimation(Player player, String animationName, int speed) {
+        if (rainbowActivated(player)) {
+            taskMap.get(player.getUniqueId()).cancel();
+        }
+
+        activateRainbow(player, animationName, speed);
+    }
+
+    private AnimationBehavior getAnimation(String animationName, ItemStack[] armor, Player player) {
+        return switch (animationName.toLowerCase()) {
+            case "classic" -> new ClassicAnimation(armor, player);
+            case "chaotic" -> new ChaoticAnimation(armor, player);
+            case "topbottom", "fromtop", "frombottom" -> new TopBottomAnimation(armor, player, TopBottomAnimation.TopBottomType.valueOf(animationName.toUpperCase()));
+            case "smoothred", "smoothgreen", "smoothblue" -> new SmoothOneColorAnimation(armor, player, SmoothOneColorAnimation.SmoothColorType.valueOf(animationName.toUpperCase()));
+            default -> new SmoothAnimation(armor, player);
+        };
+    }
+
+    private int getSpeed(int speed) {
+        if (speed > 10) {
+            return 10;
+        } else if (speed < 1) {
+            return 1;
+        }
+
+        return speed;
+    }
+
     public ItemStack[] stopAnimation(Player player) {
         if (rainbowActivated(player)) {
             return deactivateRainbow(player);
@@ -50,10 +82,14 @@ public class RainbowManager {
     }
 
     private void activateRainbow(Player player) {
+        activateRainbow(player, "", 2);
+    }
+
+    private void activateRainbow(Player player, String animationName, int speed) {
         ItemStack[] armor = equipLeatherArmor(player);
 
         if (armor != null) {
-            BukkitTask animationTask = new AnimationTask(new SmoothOneColorAnimation(armor, player, SmoothOneColorAnimation.SmoothColorType.RED)).runTaskTimer(plugin, 1, 2);
+            BukkitTask animationTask = new AnimationTask(getAnimation(animationName, armor, player)).runTaskTimer(plugin, 1, getSpeed(speed));
             taskMap.put(player.getUniqueId(), animationTask);
 
             player.sendMessage(messageIndicator + ChatColor.GREEN + "rainbow has been activated");
@@ -75,7 +111,7 @@ public class RainbowManager {
     }
 
     private ItemStack[] equipLeatherArmor(Player player) {
-        if (hasNoArmor(player)) {
+        if (hasNoArmor(player) || rainbowActivated(player)) {
             player.getInventory().setArmorContents(createLeatherArmor());
             
             return player.getInventory().getArmorContents();

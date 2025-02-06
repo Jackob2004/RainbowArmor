@@ -20,11 +20,31 @@ public class ActivateCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
-            manager.animation(player);
+            if (args.length == 1) {
+                String animationName = args[0];
+
+                manager.chosenAnimation(player, animationName);
+            } else if (args.length == 2) {
+                String animationName = args[0];
+                String number = args[1];
+
+                manager.chosenAnimation(player, animationName,getNumber(number));
+            } else {
+                manager.animation(player);
+            }
 
             return true;
         }
 
         return false;
+    }
+
+    private int getNumber(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            return 1;
+        }
+
     }
 }

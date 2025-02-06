@@ -17,9 +17,9 @@ public class SmoothOneColorAnimation extends Animation {
 
     private Color getColor() {
         return switch (type) {
-            case RED -> Color.fromRGB(processor.getNumber(), 0, 0);
-            case GREEN ->  Color.fromRGB(0, processor.getNumber(), 0);
-            case BLUE -> Color.fromRGB(0,0, processor.getNumber());
+            case SMOOTHRED -> Color.fromRGB(processor.getNumber(), 0, 0);
+            case SMOOTHGREEN ->  Color.fromRGB(0, processor.getNumber(), 0);
+            case SMOOTHBLUE -> Color.fromRGB(0,0, processor.getNumber());
         };
     }
 
@@ -32,8 +32,8 @@ public class SmoothOneColorAnimation extends Animation {
     }
 
     public enum SmoothColorType {
-        RED,
-        GREEN,
-        BLUE;
+        SMOOTHRED,
+        SMOOTHGREEN,
+        SMOOTHBLUE;
     }
 }

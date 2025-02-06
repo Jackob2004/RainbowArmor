@@ -28,8 +28,8 @@ public final class RainbowArmor extends JavaPlugin {
 
     /*
         TODO:
-                - animation speed
                 - commands for choosing desired animation and speed
+
                 - command tab complete
                 - gui for choosing desired animation and speed
                 - config for default animation and speed
