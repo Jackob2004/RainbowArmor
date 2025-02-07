@@ -2,6 +2,7 @@ package com.jackob.rainbowArmor.manager;
 
 import com.jackob.rainbowArmor.RainbowArmor;
 import com.jackob.rainbowArmor.animation.*;
+import com.jackob.rainbowArmor.gui.GUI;
 import com.jackob.rainbowArmor.task.AnimationTask;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -25,6 +26,10 @@ public class RainbowManager {
     public RainbowManager(RainbowArmor plugin) {
         this.plugin = plugin;
         this.taskMap = new HashMap<>();
+    }
+
+    public void openMenu(Player player) {
+        new GUI(player);
     }
 
     public void animation(Player player) {

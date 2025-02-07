@@ -20,7 +20,9 @@ public class ActivateCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
-            if (args.length == 1) {
+            if (args.length == 1 && args[0].equals("menu")) {
+                manager.openMenu(player);
+            } else if (args.length == 1) {
                 String animationName = args[0];
 
                 manager.chosenAnimation(player, animationName);
