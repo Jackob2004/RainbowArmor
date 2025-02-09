@@ -21,11 +21,19 @@ public class RainbowManager {
 
     private Map<UUID, BukkitTask> taskMap;
 
-    private final String messageIndicator = "[Rainbow Armor] ";
+    private final String messageIndicator;
+
+    private final String defaultAnimation;
+
+    private final int defaultSpeed;
 
     public RainbowManager(RainbowArmor plugin) {
         this.plugin = plugin;
         this.taskMap = new HashMap<>();
+
+        this.messageIndicator = plugin.getConfig().getString("plugin-message-indicator");
+        this.defaultAnimation = plugin.getConfig().getString("default-animation");
+        this.defaultSpeed = plugin.getConfig().getInt("default-speed");
     }
 
     public void openMenu(Player player) {
@@ -87,7 +95,7 @@ public class RainbowManager {
     }
 
     private void activateRainbow(Player player) {
-        activateRainbow(player, "", 2);
+        activateRainbow(player, defaultAnimation, defaultSpeed);
     }
 
     private void activateRainbow(Player player, String animationName, int speed) {

@@ -14,6 +14,9 @@ public final class RainbowArmor extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
+
         RainbowManager manager = new RainbowManager(this);
 
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(manager), this);
@@ -32,8 +35,6 @@ public final class RainbowArmor extends JavaPlugin {
 
     /*
         TODO:
-                - config for default animation and speed
-
                 - clickable/hoverable commands output
      */
 }
