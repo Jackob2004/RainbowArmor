@@ -18,11 +18,41 @@ public class GUI {
         player.openInventory(createAnimationsMenu());
     }
 
+    public static int getSpeed(Inventory inv) {
+        int speed = 1;
+
+        for (int i = 19; i < 27; i++) {
+            if (inv.getItem(i).getType() != Material.RED_WOOL) {
+                break;
+            }
+
+            speed++;
+        }
+
+        return speed;
+    }
+
+    public static void changeSpeedIcons(Inventory inv, int maxIndex) {
+        int index = changeWoolIcons(inv, 18, maxIndex,1, Material.RED_WOOL, ChatColor.RED);
+
+        changeWoolIcons(inv, maxIndex + 1, 27, index, Material.WHITE_WOOL, ChatColor.WHITE);
+    }
+
+    private static int changeWoolIcons(Inventory inv, int start, int end, int index, Material type, ChatColor woolColor) {
+        for (int i = start; i <= end; i++) {
+            inv.setItem(i, createIcon(type, woolColor + "" + ChatColor.BOLD + index));
+            index++;
+        }
+
+        return index;
+    }
+
     private Inventory createAnimationsMenu() {
         Inventory inv = Bukkit.createInventory(player, 36,ChatColor.DARK_PURPLE + "" + ChatColor.UNDERLINE + ChatColor.BOLD + "Animation picker");
 
         addAnimationButtons(inv);
         addSpeedButtons(inv);
+        inv.setItem(35, createIcon(Material.RED_STAINED_GLASS_PANE, ChatColor.DARK_RED + "" + ChatColor.BOLD + "Turn off"));
         addFillerIcons(inv);
 
         return inv;
@@ -37,11 +67,9 @@ public class GUI {
     }
 
     private void addSpeedButtons(Inventory inv) {
-        int index = 1;
-        for (int i = 18; i <= 27    ; i++) {
-            inv.setItem(i, createIcon(Material.WHITE_WOOL, ChatColor.RED + "" + ChatColor.BOLD + index));
-            index++;
-        }
+        inv.setItem(18, createIcon(Material.RED_WOOL, ChatColor.RED + "" + ChatColor.BOLD + 1));
+
+        changeWoolIcons(inv, 19,27,2,Material.WHITE_WOOL, ChatColor.RED);
     }
 
     private void addFillerIcons(Inventory inv) {
@@ -58,7 +86,7 @@ public class GUI {
                 "Smoothred", "Smoothgreen", "Smoothblue"};
     }
 
-    private ItemStack createIcon(Material type, String name) {
+    private static ItemStack createIcon(Material type, String name) {
         ItemStack item = new ItemStack(type);
 
         ItemMeta meta = item.getItemMeta();
