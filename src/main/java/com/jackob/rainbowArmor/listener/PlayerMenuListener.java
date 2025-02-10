@@ -3,6 +3,7 @@ package com.jackob.rainbowArmor.listener;
 import com.jackob.rainbowArmor.gui.GUI;
 import com.jackob.rainbowArmor.manager.RainbowManager;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,13 +26,16 @@ public class PlayerMenuListener implements Listener {
             switch (e.getRawSlot()) {
                 case 1,3,5,7,9,11,13,15,17 -> {
                     manager.chosenAnimation(player,ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()), GUI.getSpeed(e.getClickedInventory()));
+                    player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK,1,1);
                     player.closeInventory();
                 }
                 case 18,19,20,21,22,23,24,25,26,27 -> {
                     GUI.changeSpeedIcons(e.getClickedInventory(), e.getRawSlot());
+                    player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK,1,1);
                 }
                 case 35 -> {
                     manager.stopAnimation(player);
+                    player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK,1,1);
                     player.closeInventory();
                 }
             }

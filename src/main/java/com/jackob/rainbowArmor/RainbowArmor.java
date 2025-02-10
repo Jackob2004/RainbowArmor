@@ -35,6 +35,6 @@ public final class RainbowArmor extends JavaPlugin {
 
     /*
         TODO:
-                - clickable/hoverable commands output
+            - refactor
      */
 }

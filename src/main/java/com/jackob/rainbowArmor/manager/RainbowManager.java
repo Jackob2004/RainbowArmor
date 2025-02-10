@@ -4,8 +4,13 @@ import com.jackob.rainbowArmor.RainbowArmor;
 import com.jackob.rainbowArmor.animation.*;
 import com.jackob.rainbowArmor.gui.GUI;
 import com.jackob.rainbowArmor.task.AnimationTask;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -34,6 +39,20 @@ public class RainbowManager {
         this.messageIndicator = plugin.getConfig().getString("plugin-message-indicator");
         this.defaultAnimation = plugin.getConfig().getString("default-animation");
         this.defaultSpeed = plugin.getConfig().getInt("default-speed");
+    }
+
+    public void displayHelpMessage(Player player) {
+        player.sendMessage( ChatColor.BOLD + "===============");
+        player.sendMessage(messageIndicator + "\n");
+        player.sendMessage("");
+
+        sendTextComponent(player, "/rainbow", "§bClick to toggle animation", ClickEvent.Action.RUN_COMMAND);
+        sendTextComponent(player, "/rainbow menu", "§bClick to open menu", ClickEvent.Action.RUN_COMMAND);
+        sendTextComponent(player, "/rainbow classic","/rainbow <animation_name>", "§3Click auto type command", ClickEvent.Action.SUGGEST_COMMAND);
+        sendTextComponent(player, "/rainbow classic 5","/rainbow <animation_name> <speed>", "§3Click auto type command", ClickEvent.Action.SUGGEST_COMMAND);
+
+        player.sendMessage("");
+        player.sendMessage( ChatColor.BOLD + "===============");
     }
 
     public void openMenu(Player player) {
@@ -106,6 +125,7 @@ public class RainbowManager {
             taskMap.put(player.getUniqueId(), animationTask);
 
             player.sendMessage(messageIndicator + ChatColor.GREEN + "rainbow has been activated");
+            player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE,1,1);
         }
     }
 
@@ -119,6 +139,7 @@ public class RainbowManager {
 
         player.getInventory().setArmorContents(new ItemStack[]{});
         player.sendMessage(messageIndicator + ChatColor.RED + "rainbow has been deactivated");
+        player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE,1,1);
 
         return armor;
     }
@@ -163,6 +184,18 @@ public class RainbowManager {
             itemMeta.setUnbreakable(true);
             item.setItemMeta(itemMeta);
         }
+    }
+
+    private void sendTextComponent(Player player, String command, String message, ClickEvent.Action action) {
+        sendTextComponent(player, command, command, message, action);
+    }
+
+    private void sendTextComponent(Player player, String command, String componentText, String message, ClickEvent.Action action) {
+        TextComponent text = new TextComponent("§6" + componentText);
+        text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(message)));
+        text.setClickEvent(new ClickEvent(action, command));
+
+        player.spigot().sendMessage(text);
     }
 
 }

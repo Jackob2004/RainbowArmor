@@ -3,6 +3,7 @@ package com.jackob.rainbowArmor.gui;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -16,6 +17,7 @@ public class GUI {
         this.player = player;
 
         player.openInventory(createAnimationsMenu());
+        player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, 1, 1);
     }
 
     public static int getSpeed(Inventory inv) {
