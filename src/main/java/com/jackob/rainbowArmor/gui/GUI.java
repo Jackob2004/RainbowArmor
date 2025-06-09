@@ -13,6 +13,10 @@ public class GUI {
 
     private Player player;
 
+    private final String[] BUTTONS_NAMES =  {"Classic", "Chaotic", "Smooth",
+            "Topbottom", "Fromtop", "Frombottom",
+            "Smoothred", "Smoothgreen", "Smoothblue"};
+
     public GUI(Player player) {
         this.player = player;
 
@@ -63,7 +67,7 @@ public class GUI {
     private void addAnimationButtons(Inventory inv) {
         int index = 0;
         for (int i = 1; i <= 17; i += 2) {
-            inv.setItem(i, createIcon(Material.CHAINMAIL_CHESTPLATE, ChatColor.BOLD + getNames()[index]));
+            inv.setItem(i, createIcon(Material.CHAINMAIL_CHESTPLATE, ChatColor.BOLD + BUTTONS_NAMES[index]));
             index++;
         }
     }
@@ -75,17 +79,12 @@ public class GUI {
     }
 
     private void addFillerIcons(Inventory inv) {
+        ItemStack fillerIcon = createIcon(Material.BLACK_STAINED_GLASS_PANE,ChatColor.GRAY + "" + ChatColor.BOLD + "Info");
         for (int i = 0; i < inv.getSize(); i++) {
             if (inv.getItem(i) == null) {
-                inv.setItem(i, createIcon(Material.BLACK_STAINED_GLASS_PANE,ChatColor.GRAY + "" + ChatColor.BOLD + "Info"));
+                inv.setItem(i, fillerIcon);
             }
         }
-    }
-
-    private String[] getNames() {
-        return new String[]{"Classic", "Chaotic", "Smooth",
-                "Topbottom", "Fromtop", "Frombottom",
-                "Smoothred", "Smoothgreen", "Smoothblue"};
     }
 
     private static ItemStack createIcon(Material type, String name) {
